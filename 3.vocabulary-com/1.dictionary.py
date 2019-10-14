@@ -1,10 +1,14 @@
 from bs4 import BeautifulSoup as bs
 from requests import get 
 from contextlib import closing
+from requests.exceptions import ConnectionError
 
 def tester(soup):
     #find the css class
-    #soup = soup.find_all('p', class_='short')
+    checkWordFound = soup.find_all('h1', class_='dynamictext')
+    if(len(checkWordFound) == 0):
+        return;
+
     soup = soup.find_all('p')
     return soup[0].contents
 
@@ -16,6 +20,9 @@ def tester2(soup):
 
 def stringFormatter(arrayString):
     str1 = ''
+    if arrayString is None:
+        return ;
+
     for s in arrayString:
         str1 = str1 + str(s)
 
@@ -26,21 +33,32 @@ def stringFormatter(arrayString):
 
 def main():
     inp = input("Input word you want to search: ")
-    print("Searching for ",inp,"...")
+    print("\nSearching for ",inp,"...")
     url = 'https://www.vocabulary.com/dictionary/' + inp
     print('----'*30)
-    with closing(get(url, stream=True)) as resp:
-        html_doc = resp.content
-        soup = bs(html_doc, 'html.parser')
-        print("\n", stringFormatter(tester(soup)))
+    try:
+        with closing(get(url, stream=True)) as resp:
+            html_doc = resp.content
+            soup = bs(html_doc, 'html.parser')
+            result = stringFormatter(tester(soup))
+
+            if result is None:
+                print("word not found")
+                print('----'*30)
+                return 
+            print("\n", result)
+            print('----'*30)
+
+            inp = input("\nDo you want more(y/N):")
+            if inp == 'y':
+                print('----'*30)
+                print("Printing more ...\n")
+                print(stringFormatter(tester2(soup)), "\n")
+                print('----'*30)
+    except ConnectionError as e:
+        print("ERROR! unable to connect pls check your internet connection")
         print('----'*30)
-        inp = input("\nDo you want more(y/N):")
-        if inp == 'y':
-            print('----'*30)
-            print("Printing more ...\n")
-            print(stringFormatter(tester2(soup)), "\n")
-            print('----'*30)
-            input("Press any key to exit...")
+
 
         
 
