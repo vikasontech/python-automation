@@ -32,35 +32,37 @@ def stringFormatter(arrayString):
 
 
 def main():
-    inp = input("Input word you want to search: ")
-    print("\nSearching for ",inp,"...")
-    url = 'https://www.vocabulary.com/dictionary/' + inp
-    print('----'*30)
-    try:
-        with closing(get(url, stream=True)) as resp:
-            html_doc = resp.content
-            soup = bs(html_doc, 'html.parser')
-            result = stringFormatter(tester(soup))
+    while True:
+        inp = input('Input word you want to search or input for quite: ')
+        if (inp == 'q'):
+            break;
 
-            if result is None:
-                print("word not found")
+        print("\nSearching for ",inp,"...")
+        url = 'https://www.vocabulary.com/dictionary/' + inp
+        print('----'*30)
+        try:
+            with closing(get(url, stream=True)) as resp:
+                html_doc = resp.content
+                soup = bs(html_doc, 'html.parser')
+                result = stringFormatter(tester(soup))
+
+                if result is None:
+                    print("word not found")
+                    print('----'*30)
+                    return 
+                print("\n", result)
                 print('----'*30)
-                return 
-            print("\n", result)
+
+                inp = input("\nDo you want more(Y/n):")
+                if inp != 'n':
+                    print('----'*30)
+                    print("Printing more ...\n")
+                    print(stringFormatter(tester2(soup)), "\n")
+                    print('----'*30)
+        except ConnectionError as e:
+            print("ERROR! unable to connect pls check your internet connection")
             print('----'*30)
 
-            inp = input("\nDo you want more(y/N):")
-            if inp == 'y':
-                print('----'*30)
-                print("Printing more ...\n")
-                print(stringFormatter(tester2(soup)), "\n")
-                print('----'*30)
-    except ConnectionError as e:
-        print("ERROR! unable to connect pls check your internet connection")
-        print('----'*30)
-
-
-        
 
 
 #todo
