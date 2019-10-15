@@ -33,8 +33,9 @@ def stringFormatter(arrayString):
 
 def main():
     while True:
-        inp = input('Input word you want to search or input for quite: ')
-        if (inp == 'q'):
+        inp = input('Input word you want to search or input (q/Q) for quit: ')
+        if (inp.lower() == 'q'):
+            print('value of inp {}'.format(inp))
             break;
 
         print("\nSearching for ",inp,"...")
@@ -49,6 +50,7 @@ def main():
                 if result is None:
                     print("word not found")
                     print('----'*30)
+                    continue 
                     return 
                 print("\n", result)
                 print('----'*30)
