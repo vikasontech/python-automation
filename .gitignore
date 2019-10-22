@@ -1,0 +1,8 @@
+**.env**
+**.pyc
+**__pycache**
+**_libs**
+**.pxi
+**.idea**
+**.swp
+**.vscode**
