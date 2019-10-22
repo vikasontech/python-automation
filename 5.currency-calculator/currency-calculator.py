@@ -22,9 +22,14 @@ def calculate_inr_by_thb_at_current_exchange_rate(thb_want_to_send):
 def main():
     while (True):
         res= input("How much money you want to send (THB) or Q/q to quit:")
-        if res.lower() == 'q':
-            break;
-        thb_want_to_send=float(res.strip())
+        if (res == 'q'):
+            break
+        try:
+            thb_want_to_send=float(res.strip())
+        except Exception as e:
+            continue
+
         calculate_inr_by_thb_at_current_exchange_rate(thb_want_to_send)
 
+main()
 
