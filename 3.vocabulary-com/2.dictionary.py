@@ -4,7 +4,9 @@ from contextlib import closing
 from requests.exceptions import ConnectionError
 
 def tester(soup):
-    #find the css class
+    ### 
+    find the css class
+    ###
     checkWordFound = soup.find_all('h1', class_='dynamictext')
     if(len(checkWordFound) == 0):
         return;
@@ -12,10 +14,10 @@ def tester(soup):
     soup = soup.find_all('p')
     return soup[0].contents
 
+
 def tester2(soup):
     soup = soup.find_all('p')
     return soup[1].contents
-
 
 
 def stringFormatter(arrayString):
