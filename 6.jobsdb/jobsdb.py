@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup as bs4
 import requests
 import re
-from PyPDF2 import PdfFileWriter
+import writepdf
 
 url = "https://th.jobsdb.com/TH/EN/Search/FindJobs?KeyOpt=COMPLEX&JSRV=1&RLRSF=1&JobCat=1&SearchFields=Positions,Companies&Key=software%20development%20team%20lead&Locations=2&SalaryF=130000&SalaryType=1&JSSRC=JSRSB"
 
@@ -41,18 +41,12 @@ class JobDesciption():
     def get_job_description(s):
         cls = 'jobad-primary-details'
         s1 = s.find_all('div', class_=cls)
+        result = ''
         for e in s1:
-            #print(e.contents)
             for x in e.contents:
-                print (remove_tags(x))
-            #print(e)
-        return ''
-class PDFwritter():
-        def writePDF(text):
-            output = PdfFileWriter()
-            os = open("sample.pdf", "wb")
-            output.write(os)
+                return remove_tags(x)
             
+
 
 def main():
     htmlcontent = HtmlContent()
@@ -62,15 +56,11 @@ def main():
     for jobs in list_of_jobs:
         link = jobs['href']
         s = HtmlContent.get_html(link)
-        print(f"title: {JobDesciption.get_job_title(s)}") 
-        print(f"company: {JobDesciption.get_company_name(s)}")
-        print(f"salary: {JobDesciption.get_salary_details(s)}")
-        print(JobDesciption.get_job_description(s));
-#main()
-def sampe():
-    PDFwritter.writePDF("jai shri ram")
+        title = JobDesciption.get_job_title(s)
+        company = JobDesciption.get_company_name(s)
+        salary = JobDesciption.get_salary_details(s)
+        description = JobDesciption.get_job_description(s)
+        writepdf.sample(title, company, salary, description)
 
-sampe()
-
-
+main()
 
