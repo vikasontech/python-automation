@@ -11,7 +11,6 @@ def option():
   return choice
 
 def process():
-  print("prcess called!")
   choice = 'none'
   while (choice != 'q'):
     choice = option()
