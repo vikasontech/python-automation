@@ -4,9 +4,7 @@ from contextlib import closing
 from requests.exceptions import ConnectionError
 
 def tester(soup):
-    ### 
-    find the css class
-    ###
+
     checkWordFound = soup.find_all('h1', class_='dynamictext')
     if(len(checkWordFound) == 0):
         return;
@@ -42,6 +40,7 @@ def main():
 
         print("\nSearching for ",inp,"...")
         url = 'https://www.vocabulary.com/dictionary/' + inp
+#        print('url: ', url)
         print('----'*30)
         try:
             with closing(get(url, stream=True)) as resp:
@@ -74,4 +73,4 @@ def is_good_response(resp):
     return (resp.status_code == 200
             and content_type is not None
             and content_type.find('html') > -1)
-main()
+# main()
