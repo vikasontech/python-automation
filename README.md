@@ -18,8 +18,11 @@ Note run.sh every time when you want to run the script the output should be like
 
 <b>Sample</b>
 
-Welcome to the automation tools v.01 </br>
-1. Vocabulary </br>
-2. Currency Calculator </br>
+Welcome to the automation tools v.02</br>
+1. Vocabulary</br>
+2. Currency Calculator</br>
+3. Gist url format</br>
+q. Quit</br></br>
+What's your choice:
 
 Thank you
